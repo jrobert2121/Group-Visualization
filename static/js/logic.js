@@ -18,6 +18,14 @@ let baseMaps = {
     "Satellite Streets": satelliteStreets
   };
 
+  let nHoodlines = new L.LayerGroup();
+  let chargingS = new L.LayerGroup();
+
+  let overlays = {
+    "Neighborhoods": nHoodlines,
+    "Charging Stations": chargingS
+  };
+
   // Create the map object with center, zoom level and default layer.
   let myMap = L.map('map', {
     center: [42.3601, -71.0589],
@@ -26,7 +34,41 @@ let baseMaps = {
 })
 
 // Pass our map layers into our layers control and add the layers control to the map.
-L.control.layers(baseMaps).addTo(myMap);
+L.control.layers(baseMaps, overlays).addTo(myMap);
+
+
+let chargeStyle = {
+    color: "red",
+    fillColor: "yellow",
+    weight: 5
+  }
+
+
+// Use this link to get the geojson data.
+var charge_data = "static/data/Charging_Stations.geojson";
+
+// Get our GeoJSON data using d3.json
+d3.json(charge_data, function(data) {
+    console.log(data);
+    L.geoJSON(data, {
+        pointToLayer: function(feature, latlng) {
+            console.log(charge_data);
+            return L.circleMarker(latlng);
+      },
+        style: chargeStyle,
+
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup("<h2>" + "Fuel Type: " + feature.properties.Fuel_Type_Code + "</h2> <hr> <h3>Location: " + feature.properties.Street_Address + "</h3>")
+        }
+    }).addTo(chargingS);
+    chargingS.addTo(map);
+
+});
+
+
+
+
+
 
 // Use this link to get the geojson data.
 var link = "static/data/Wicked_Free_Wi-Fi_Locations.geojson";
@@ -62,5 +104,6 @@ d3.json(bostonHoods, (function(data) {
             // create popup with neighborhood name
             layer.bindPopup("<h2>" + "Neighborhood: " + feature.properties.Name + "</h2>");
         }
-    }).addTo(myMap);
+    }).addTo(nHoodlines);
+    nHoodlines.addTo(map);
 }));
