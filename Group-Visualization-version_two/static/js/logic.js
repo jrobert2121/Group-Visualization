@@ -36,24 +36,13 @@ let baseMaps = {
 // Pass our map layers into our layers control and add the layers control to the map.
 L.control.layers(baseMaps, overlays).addTo(myMap);
 
-
-// let chargeStyle = {
-//     color: "green",
-//     // fillColor: "yellow",
-//     weight: 5
-//   }
-
 var greenIcon = L.icon({
     iconUrl: 'static/images/ClipartKey_1470608.png',
-    // shadowUrl: 'static/images/ClipartKey_1470608.png',
-
+    
     iconSize:     [38, 50], // size of the icon
-    // shadowSize:   [50, 64], // size of the shadow
     iconAnchor:   [22, 45], // point of the icon which will correspond to marker's location
-    // shadowAnchor: [4, 62],  // the same for the shadow
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
-
 
 // Use this link to get the geojson data.
 var charge_data = "static/data/Charging_Stations.geojson";
@@ -66,8 +55,7 @@ d3.json(charge_data, function(data) {
             console.log(charge_data);
             return L.marker(latlng, {icon: greenIcon});
       },
-        // style: chargeStyle,
-
+        
         onEachFeature: function(feature, layer) {
             layer.bindPopup("<h2>" + "Fuel Type: " + feature.properties.Fuel_Type_Code + "</h2> <hr> <h3>Location: " + feature.properties.Street_Address + "</h3>")
         }
@@ -75,11 +63,6 @@ d3.json(charge_data, function(data) {
     chargingS.addTo(map);
 
 });
-
-
-
-
-
 
 // Use this link to get the geojson data.
 var link = "static/data/Wicked_Free_Wi-Fi_Locations.geojson";
