@@ -1,7 +1,7 @@
 # Group-Visualization
 
 ## Project Overview
-Create a visualization to demonstrate the density (or lack thereof) of free wi-fi locations through the neighborhoods of Boston.
+Create a visualization to demonstrate the density (or lack thereof) of free wi-fi locations and charging stations throughout the neighborhoods of Boston.
 
 ## Resources
 Data Sources:
@@ -13,7 +13,7 @@ Data Sources:
 - We created two basemaps for the user to choose between using layer controls.
 - For the wifi locations, we provided markers with popups with the name of the neighborhood and the address of the location.
 - For the neighborhoods, we used color to define the boundaries.
-- For the charging stations, we used circle markers, with the fuel type and location data.
+- For the charging stations, we used a custom icon as the marker, with the fuel type and location data.
 - When clicking on a neighborhood, we used a d3 listener to enlarge the selected neighborhood to fit the screen, as well as provide a popup with the name of the neighborhood.
 - The neighborhood and charging geojson data was added to overlays, for map customization and easy readability.
 
